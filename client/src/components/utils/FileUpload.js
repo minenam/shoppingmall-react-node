@@ -1,11 +1,39 @@
 import React from 'react'
 import Dropzone from 'react-dropzone'
 import { Icon } from 'antd';
+import axios from 'axios';
+import { response } from 'express';
 
 function FileUpload() {
+
+    const dropHandler = (files) => {
+
+        let formData = new FormData();
+
+        const config = {
+            header: { 'content-type': 'multipart/form-data' }
+        }
+        formData.append("file", files[0])
+
+        let formData = new FormData();
+        axios.post('/api/product/image', formData, config)   // api 경로 설정
+            .then(response => {
+                if(response.data.success) {
+
+                } else {
+                    alert('파일을 저장하는 데 실패했습니다.')
+                }
+            })
+
+    }
+    acceptedFiles => console.log(acceptedFiles)
+
+
+
+
     return (
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+            <Dropzone onDrop={dropHandler}>
                 {({ getRootProps, getInputProps }) => (  
                     <div
                         style={{

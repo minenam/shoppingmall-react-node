@@ -15,6 +15,7 @@ const config = require("./config/key");
 //   .catch(err => console.error(err));
 
 const mongoose = require("mongoose");
+const { KeyObject } = require("crypto");
 const connect = mongoose.connect(config.mongoURI,
   {
     useNewUrlParser: true, useUnifiedTopology: true,
@@ -34,7 +35,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 app.use('/api/users', require('./routes/users'));
-
+app.use('/api/product', require('./routes/product'));  // product 를 위한 api 수신 요청
 
 //use this to show the image you have in node js server to client (react js)
 //https://stackoverflow.com/questions/48914987/send-image-path-from-node-js-express-server-to-react-client
